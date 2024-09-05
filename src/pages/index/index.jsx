@@ -6,6 +6,7 @@ import './index.scss'
 
 export default function Index () {
   
+  const [orderNo, setOrderNo] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isCounting, setIsCounting] = useState(false);
   const [count, setCount] = useState(60);
@@ -57,12 +58,17 @@ export default function Index () {
 
   return (
     <View className='index'>
-      <AtButton type="primary" openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>点击授权手机号</AtButton>
+      <AtInput
+        name='orderNo'
+        placeholder='输入官旗店近半年的订单号'
+        value={orderNo}
+        onChange={value => setOrderNo(value)}
+      />
+      <AtButton type="primary" openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>一键获取手机号</AtButton>
       <AtInput
         type='number'
-        title="手机号码"
         name='phoneNumber'
-        placeholder='请输入手机号'
+        placeholder='请输入订单对应收货手机号'
         value={phoneNumber}
         onChange={value => setPhoneNumber(value)}
       >
@@ -71,14 +77,13 @@ export default function Index () {
           disabled={isCounting}
           className='send-button'
         >
-          {isCounting ? `${count}s后重新发送` : '发送验证码'}
+          {isCounting ? `${count}s后重新发送` : '获取验证码'}
         </AtButton>
       </AtInput>
       <AtInput
         name="smsCode"
-        title='验证码'
         type='number'
-        placeholder='验证码'
+        placeholder='请输入验证码'
         value={smsCode}
         onChange={value => setSmsCode(value)}
       />
