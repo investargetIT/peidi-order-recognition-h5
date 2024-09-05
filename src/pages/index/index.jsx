@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View } from '@tarojs/components'
-import { AtButton, AtInput } from 'taro-ui';
+import { View, Input, Button } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
 import './index.scss'
 
@@ -36,6 +35,14 @@ export default function Index () {
       return;
     }
     console.log(code);
+    const params = {
+      url: process.env.TARO_APP_API + '/wechat/wechatMobile?code=' + code,
+      // header: {
+      //   'content-type': 'application/json' // 默认值
+      // },
+    };
+    const res = await Taro.request(params);
+    console.log('res', res);
   };
 
   const handleSendCode = () => {
@@ -58,36 +65,39 @@ export default function Index () {
 
   return (
     <View className='index'>
-      <AtInput
+      <Input
         name='orderNo'
         placeholder='输入官旗店近半年的订单号'
         value={orderNo}
-        onChange={value => setOrderNo(value)}
+        onInput={e => setOrderNo(e.detail.value)}
       />
-      <AtButton type="primary" openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>一键获取手机号</AtButton>
-      <AtInput
-        type='number'
-        name='phoneNumber'
-        placeholder='请输入订单对应收货手机号'
-        value={phoneNumber}
-        onChange={value => setPhoneNumber(value)}
-      >
-        <AtButton
+      <Button openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>一键获取手机号</Button>
+      <View style={{ display: 'flex', alignItems: 'center' }}>
+        <Input
+          style={{ flex: 1 }}
+          type='number'
+          name='phoneNumber'
+          placeholder='请输入订单对应收货手机号'
+          value={phoneNumber}
+          onInput={e => setPhoneNumber(e.detail.value)}
+        />
+        <Button
+          style={{ width: 120 }}
           onClick={handleSendCode}
           disabled={isCounting}
           className='send-button'
         >
           {isCounting ? `${count}s后重新发送` : '获取验证码'}
-        </AtButton>
-      </AtInput>
-      <AtInput
+        </Button>
+      </View>
+      <Input
         name="smsCode"
         type='number'
         placeholder='请输入验证码'
         value={smsCode}
-        onChange={value => setSmsCode(value)}
+        onInput={e => setSmsCode(e.detail.value)}
       />
-      <AtButton type='primary' onClick={handleSumbit}>提交</AtButton>
+      <Button onClick={handleSumbit}>提交</Button>
     </View>
   )
 }
