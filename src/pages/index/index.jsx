@@ -34,15 +34,14 @@ export default function Index () {
       console.log('用户拒绝授权手机号！！！');
       return;
     }
-    console.log(code);
     const params = {
       url: process.env.TARO_APP_API + '/wechat/wechatMobile?code=' + code,
-      // header: {
-      //   'content-type': 'application/json' // 默认值
-      // },
     };
-    const res = await Taro.request(params);
-    console.log('res', res);
+    const { data: res } = await Taro.request(params);
+    const { success, data } = res;
+    if (success) {
+      setPhoneNumber(data);
+    }
   };
 
   const handleSendCode = () => {
