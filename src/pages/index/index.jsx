@@ -1,4 +1,5 @@
-import { View, Button } from '@tarojs/components'
+import { View } from '@tarojs/components'
+import { AtButton } from 'taro-ui';
 import { useLoad } from '@tarojs/taro'
 import './index.scss'
 
@@ -19,7 +20,7 @@ export default function Index () {
 
   return (
     <View className='index'>
-      <Button openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>点击授权手机号</Button>
+      <AtButton type="primary" openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>点击授权手机号</AtButton>
     </View>
   )
 }
