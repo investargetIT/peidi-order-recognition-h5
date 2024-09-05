@@ -3,5 +3,6 @@
 docker run -it --rm \
   --name peidi-planet-weapp \
   -v $(pwd):/app \
+  -v /mnt/c/Users/Oliver/peidi-planet-weapp:/app/dist \
   -v /app/node_modules \
   peidi-planet-weapp
