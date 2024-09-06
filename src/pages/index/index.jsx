@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Input } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
-import { Button } from '@nutui/nutui-react-taro';
+import { Button, Input, ConfigProvider } from '@nutui/nutui-react-taro';
 import './index.scss'
 
 export default function Index () {
@@ -123,8 +123,14 @@ export default function Index () {
     // TODO: 识别成功后的逻辑
   }
 
+  const theme = {
+    nutuiColorPrimary: '#3880d3',
+    nutuiColorPrimaryStop1: '#3880d3',
+    nutuiColorPrimaryStop2: '#3880d3',
+  }
+
   return (
-    <View className='index'>
+    <ConfigProvider theme={theme}>
       <Input
         name='orderNo'
         placeholder='输入官旗店近半年的订单号'
@@ -159,6 +165,6 @@ export default function Index () {
         onInput={e => setSmsCode(e.detail.value)}
       />
       <Button onClick={handleSumbit}>提交</Button>
-    </View>
+    </ConfigProvider>
   )
 }
