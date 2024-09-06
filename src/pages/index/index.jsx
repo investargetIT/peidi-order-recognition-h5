@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Input, Button } from '@tarojs/components'
+import { View, Input } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
+import { Button } from '@nutui/nutui-react-taro';
 import './index.scss'
 
 export default function Index () {
