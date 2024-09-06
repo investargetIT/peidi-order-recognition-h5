@@ -52,26 +52,31 @@ export default function Index () {
       })
       return
     }
-    const params = {
-      url: process.env.TARO_APP_USER_API + '/user/validate-code',
-      data: {
-        codeType: 'sms_oms_order_trade',
-        destination: phoneNumber,
-      },
-      header: {
-        'PLATFORM': 'oms',
-      },
-      method: 'POST',
-    };
-    const { data: res } = await Taro.request(params);
-    const { success } = res;
-    if (success) {
-      Taro.showToast({
-        title: '验证码已发送',
-        icon: 'success'
-      });
-      setIsCounting(true);
-    }
+    // const params = {
+    //   url: process.env.TARO_APP_USER_API + '/user/validate-code',
+    //   data: {
+    //     codeType: 'sms_oms_order_trade',
+    //     destination: phoneNumber,
+    //   },
+    //   header: {
+    //     'PLATFORM': 'oms',
+    //   },
+    //   method: 'POST',
+    // };
+    // const { data: res } = await Taro.request(params);
+    // const { success } = res;
+    // if (success) {
+    //   Taro.showToast({
+    //     title: '验证码已发送',
+    //     icon: 'success'
+    //   });
+    //   setIsCounting(true);
+    // }
+    Taro.showToast({
+      title: '验证码已发送',
+      icon: 'success'
+    });
+    setIsCounting(true);
   }
 
   const handleSumbit = () => {}
@@ -96,6 +101,7 @@ export default function Index () {
         />
         <Button
           style={{ width: 120 }}
+          type="primary"
           onClick={handleSendCode}
           disabled={isCounting}
           className='send-button'
