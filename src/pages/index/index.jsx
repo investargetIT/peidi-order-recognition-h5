@@ -137,7 +137,7 @@ export default function Index () {
         value={orderNo}
         onInput={e => setOrderNo(e.detail.value)}
       />
-      <Button openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>一键获取手机号</Button>
+      <Button type="primary" openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>授权手机号</Button>
       <View style={{ display: 'flex', alignItems: 'center' }}>
         <Input
           style={{ flex: 1 }}
@@ -164,7 +164,7 @@ export default function Index () {
         value={smsCode}
         onInput={e => setSmsCode(e.detail.value)}
       />
-      <Button onClick={handleSumbit}>提交</Button>
+      <Button type="primary" onClick={handleSumbit}>一键识别</Button>
     </ConfigProvider>
   )
 }
