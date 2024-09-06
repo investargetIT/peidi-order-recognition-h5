@@ -44,7 +44,7 @@ export default function Index () {
     }
   };
 
-  const handleSendCode = () => {
+  const handleSendCode = async () => {
     if (!phoneNumber.match(/^1[3456789]\d{9}$/)) {
       Taro.showToast({
         title: '手机号格式不正确',
@@ -52,12 +52,26 @@ export default function Index () {
       })
       return
     }
-    // 这里应该调用发送验证码的API
-    Taro.showToast({
-      title: '验证码已发送',
-      icon: 'success'
-    })
-    setIsCounting(true)
+    const params = {
+      url: process.env.TARO_APP_USER_API + '/user/validate-code',
+      data: {
+        codeType: 'sms_oms_order_trade',
+        destination: phoneNumber,
+      },
+      header: {
+        'PLATFORM': 'oms',
+      },
+      method: 'POST',
+    };
+    const { data: res } = await Taro.request(params);
+    const { success } = res;
+    if (success) {
+      Taro.showToast({
+        title: '验证码已发送',
+        icon: 'success'
+      });
+      setIsCounting(true);
+    }
   }
 
   const handleSumbit = () => {}
