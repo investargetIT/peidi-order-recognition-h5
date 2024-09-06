@@ -52,34 +52,58 @@ export default function Index () {
       })
       return
     }
-    // const params = {
-    //   url: process.env.TARO_APP_USER_API + '/user/validate-code',
-    //   data: {
-    //     codeType: 'sms_oms_order_trade',
-    //     destination: phoneNumber,
-    //   },
-    //   header: {
-    //     'PLATFORM': 'oms',
-    //   },
-    //   method: 'POST',
-    // };
-    // const { data: res } = await Taro.request(params);
-    // const { success } = res;
-    // if (success) {
-    //   Taro.showToast({
-    //     title: '验证码已发送',
-    //     icon: 'success'
-    //   });
-    //   setIsCounting(true);
-    // }
-    Taro.showToast({
-      title: '验证码已发送',
-      icon: 'success'
-    });
-    setIsCounting(true);
+    const params = {
+      url: process.env.TARO_APP_USER_API + '/user/validate-code',
+      data: {
+        codeType: 'sms_oms_order_trade',
+        destination: phoneNumber,
+      },
+      header: {
+        'PLATFORM': 'oms',
+      },
+      method: 'POST',
+    };
+    const { data: res } = await Taro.request(params);
+    const { success } = res;
+    if (success) {
+      Taro.showToast({
+        title: '验证码已发送',
+        icon: 'success'
+      });
+      setIsCounting(true);
+    }
+
+    // Taro.showToast({
+    //   title: '验证码已发送',
+    //   icon: 'success'
+    // });
+    // setIsCounting(true);
   }
 
-  const handleSumbit = () => {}
+  const handleSumbit = async () => {
+    if (!orderNo || !phoneNumber || !smsCode) return;
+    const params = {
+      url: process.env.TARO_APP_API + '/wechat/saveOrderTrade',
+      data: {
+        code: smsCode,
+        inputMobile: phoneNumber,
+        tid: orderNo,
+        wechatMobile: phoneNumber,
+      },
+      method: 'POST',
+    };
+    const { data: res } = await Taro.request(params);
+    const { success, msg } = res;
+    if (!success) {
+      console.log('res', res);
+      Taro.showToast({
+        title: msg == 'Internal server error' ? '识别失败，请检查订单号' : msg,
+        icon: 'none',
+      });
+      return;
+    }
+    // TODO: 识别成功后的逻辑
+  }
 
   return (
     <View className='index'>
