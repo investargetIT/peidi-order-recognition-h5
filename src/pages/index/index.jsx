@@ -80,8 +80,26 @@ export default function Index () {
     // setIsCounting(true);
   }
 
+  const checkOrderStatus = async () => {
+    const params = {
+      url: process.env.TARO_APP_API + '/wechat/checkExistTid?tid=' + orderNo,
+    };
+    const { data: res } = await Taro.request(params);
+    const { data } = res;
+    return data;
+  }
+
   const handleSumbit = async () => {
     if (!orderNo || !phoneNumber || !smsCode) return;
+    // const orderBinded = await checkOrderStatus();
+    // if (orderBinded) {
+    //   Taro.showToast({
+    //     title: '该订单已绑定',
+    //     icon: 'none',
+    //   });
+    //   return;
+    // }
+    // 保存订单用户关联信息
     const params = {
       url: process.env.TARO_APP_API + '/wechat/saveOrderTrade',
       data: {
@@ -95,9 +113,8 @@ export default function Index () {
     const { data: res } = await Taro.request(params);
     const { success, msg } = res;
     if (!success) {
-      console.log('res', res);
       Taro.showToast({
-        title: msg == 'Internal server error' ? '识别失败，请检查订单号' : msg,
+        title: msg,
         icon: 'none',
       });
       return;
