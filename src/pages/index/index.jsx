@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { View } from '@tarojs/components'
 import Taro, { useLoad } from '@tarojs/taro'
-import { Button, Input, ConfigProvider } from '@nutui/nutui-react-taro';
+import { Button, Input, Row, Col, ConfigProvider } from '@nutui/nutui-react-taro';
 import './index.scss'
 
 export default function Index () {
@@ -160,7 +159,7 @@ export default function Index () {
             }}
           >
             <Input
-              className="input input-phone-numer"
+              className="input"
               type="number"
               maxLength="11"
               placeholder="请输入订单对应收货手机号"
@@ -182,13 +181,18 @@ export default function Index () {
             </div>
           </div>
           <div className="label">请输入验证码</div>
-          <Input
-            className="input input-code"
-            type='number'
-            placeholder={null}
-            value={smsCode}
-            onChange={value => setSmsCode(value)}
-          />
+          <Row type="flex" justify="center">
+            <Col span="12">
+              <Input
+                className="input input__code"
+                type="number"
+                maxLength="6"
+                placeholder={null}
+                value={smsCode}
+                onChange={value => setSmsCode(value)}
+              />
+            </Col>
+          </Row>
           <Button
             className="button"
             block

@@ -24,18 +24,11 @@
     .input {
       border: 1px solid #bfbfbf;
       height: 64px;
-    }
 
-    .input-phone-number {
-      border-right-width: 0;
-    }
-
-    .input-code {
-      border-style: dashed;
-      margin: 40px auto;
-      width: 360px;
-      height: 72px;
-      font-size: 36px;
+      &__code {
+        height: 72px;
+        font-size: 36px;
+      }
     }
 
     .button {
