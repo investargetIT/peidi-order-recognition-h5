@@ -181,11 +181,11 @@ export default function Index () {
               </Button>
             </div>
           </div>
-
+          <div className="label">请输入验证码</div>
           <Input
             className="input input-code"
             type='number'
-            placeholder='请输入验证码'
+            placeholder={null}
             value={smsCode}
             onChange={value => setSmsCode(value)}
           />

@@ -14,6 +14,13 @@
       color: #757575;
     }
 
+    .label {
+      margin: 20px 0;
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+    }
+
     .input {
       border: 1px solid #bfbfbf;
       height: 64px;
@@ -24,7 +31,11 @@
     }
 
     .input-code {
-      margin: 20px 0;
+      border-style: dashed;
+      margin: 40px auto;
+      width: 360px;
+      height: 72px;
+      font-size: 36px;
     }
 
     .button {
