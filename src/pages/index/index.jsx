@@ -175,7 +175,9 @@ export default function Index () {
                 type="primary"
                 shape="square"
                 onClick={handleSendCode}
-                disabled={isCounting}>
+                disabled={isCounting}
+                style={isCounting && { backgroundColor: '#3880d3', opacity: '.8', border: 'none' }}
+              >
                 {isCounting ? `${count}s后重新发送` : '获取验证码'}
               </Button>
             </div>
