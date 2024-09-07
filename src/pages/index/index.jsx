@@ -127,44 +127,79 @@ export default function Index () {
     nutuiColorPrimary: '#3880d3',
     nutuiColorPrimaryStop1: '#3880d3',
     nutuiColorPrimaryStop2: '#3880d3',
+    nutuiInputPadding: '10px',
+    nutuiInputFontSize: '13px',
   }
 
   return (
     <ConfigProvider theme={theme}>
-      <Input
-        name='orderNo'
-        placeholder='输入官旗店近半年的订单号'
-        value={orderNo}
-        onInput={e => setOrderNo(e.detail.value)}
-      />
-      <Button type="primary" openType='getPhoneNumber' onGetPhoneNumber={getPhoneNumber}>授权手机号</Button>
-      <View style={{ display: 'flex', alignItems: 'center' }}>
-        <Input
-          style={{ flex: 1 }}
-          type='number'
-          name='phoneNumber'
-          placeholder='请输入订单对应收货手机号'
-          value={phoneNumber}
-          onInput={e => setPhoneNumber(e.detail.value)}
-        />
-        <Button
-          style={{ width: 120 }}
-          type="primary"
-          onClick={handleSendCode}
-          disabled={isCounting}
-          className='send-button'
-        >
-          {isCounting ? `${count}s后重新发送` : '获取验证码'}
-        </Button>
-      </View>
-      <Input
-        name="smsCode"
-        type='number'
-        placeholder='请输入验证码'
-        value={smsCode}
-        onInput={e => setSmsCode(e.detail.value)}
-      />
-      <Button type="primary" onClick={handleSumbit}>一键识别</Button>
+      <div className="container">
+        <div className="form">
+          <Input
+            className="input input-tid"
+            placeholder='输入官旗店近半年的订单号'
+            value={orderNo}
+            onChange={value => setOrderNo(value)}
+          />
+          <div className="text">*仅支持同一用户的订单号</div>
+          <Button
+            className="button"
+            block
+            type="primary"
+            shape="square"
+            openType='getPhoneNumber'
+            onGetPhoneNumber={getPhoneNumber}
+          >
+            授权手机号
+          </Button>
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              background: '#fff',
+            }}
+          >
+            <Input
+              className="input input-phone-numer"
+              type="number"
+              maxLength="11"
+              placeholder="请输入订单对应收货手机号"
+              value={phoneNumber}
+              onChange={value => setPhoneNumber(value)}
+            />
+            <div
+              className="right"
+              style={{ display: 'flex', alignItems: 'center' }}
+            >
+              <Button
+                className="button"
+                type="primary"
+                shape="square"
+                onClick={handleSendCode}
+                disabled={isCounting}>
+                {isCounting ? `${count}s后重新发送` : '获取验证码'}
+              </Button>
+            </div>
+          </div>
+
+          <Input
+            className="input input-code"
+            type='number'
+            placeholder='请输入验证码'
+            value={smsCode}
+            onChange={value => setSmsCode(value)}
+          />
+          <Button
+            className="button"
+            block
+            type="primary"
+            shape="square"
+            onClick={handleSumbit}
+          >
+            一键识别
+          </Button>
+        </div>
+      </div>
     </ConfigProvider>
   )
 }
