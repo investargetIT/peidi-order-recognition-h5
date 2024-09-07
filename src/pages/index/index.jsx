@@ -137,6 +137,7 @@ export default function Index () {
       <Image src={header} mode="widthFix" width="100%" />
       <div className="container">
         <div className="form">
+          <div style={{ width: '100%', height: '1rpx' }} />
           <Input
             className="input input-tid"
             placeholder='输入官旗店近半年的订单号'
