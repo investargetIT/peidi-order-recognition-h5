@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Taro, { useLoad } from '@tarojs/taro'
-import { Button, Input, Row, Col, ConfigProvider } from '@nutui/nutui-react-taro';
+import { Button, Input, Row, Col, ConfigProvider, Image } from '@nutui/nutui-react-taro';
 import './index.scss'
+import header from "../../header.jpg";
+import footer from "../../footer.jpg";
 
 export default function Index () {
   
@@ -132,6 +134,7 @@ export default function Index () {
 
   return (
     <ConfigProvider theme={theme}>
+      <Image src={header} mode="widthFix" width="100%" />
       <div className="container">
         <div className="form">
           <Input
@@ -206,6 +209,7 @@ export default function Index () {
           </Button>
         </div>
       </div>
+      <Image src={footer} mode="widthFix" width="100%" />
     </ConfigProvider>
   )
 }
