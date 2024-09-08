@@ -1,7 +1,7 @@
-.container {
+.bg {
   background-color: #3880d3;
 
-  .form {
+  .container {
     margin: 0 20px;
     padding: 60px;
     background-color: white;
@@ -12,6 +12,9 @@
       padding: 0 20px;
       font-size: 24px;
       color: #757575;
+      &__center {
+        text-align: center;
+      }
     }
 
     .label {

@@ -4,15 +4,17 @@ import { Button, Input, Row, Col, ConfigProvider, Image } from '@nutui/nutui-rea
 import './index.scss'
 import header from "../../header.jpg";
 import footer from "../../footer.jpg";
+import coupon from "../../coupon.png";
 
 export default function Index () {
   
   const [orderNo, setOrderNo] = useState('');
-  const [weChatPhoneNumber, setWeChatPhoneNumber] = useState(null);
+  const [weChatPhoneNumber, setWeChatPhoneNumber] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isCounting, setIsCounting] = useState(false);
   const [count, setCount] = useState(60);
   const [smsCode, setSmsCode] = useState('');
+  const [displayCoupon, setDisplayCoupon] = useState(false);
 
   useLoad(() => {
     console.log('Page loaded.')
@@ -123,7 +125,11 @@ export default function Index () {
       });
       return;
     }
-    // TODO: 识别成功后的逻辑
+    setDisplayCoupon(true);
+  }
+
+  const handleCouponClicked = () => {
+    Taro.setClipboardData({ data: process.env.TARO_APP_COUPON });
   }
 
   const theme = {
@@ -137,79 +143,90 @@ export default function Index () {
   return (
     <ConfigProvider theme={theme}>
       <Image src={header} mode="widthFix" width="100%" />
-      <div className="container">
-        <div className="form">
-          <div style={{ width: '100%', height: '1rpx' }} />
-          <Input
-            className="input input-tid"
-            placeholder='输入官旗店近半年的订单号'
-            value={orderNo}
-            onChange={value => setOrderNo(value)}
-          />
-          <div className="text">*仅支持同一用户的订单号</div>
-          <Button
-            className="button"
-            block
-            type="primary"
-            shape="square"
-            openType='getPhoneNumber'
-            onGetPhoneNumber={getPhoneNumber}
-          >
-            授权手机号
-          </Button>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              background: '#fff',
-            }}
-          >
-            <Input
-              className="input"
-              type="number"
-              maxLength="11"
-              placeholder="请输入订单对应收货手机号"
-              value={phoneNumber}
-              onChange={value => setPhoneNumber(value)}
-            />
-            <div
-              className="right"
-              style={{ display: 'flex', alignItems: 'center' }}
-            >
+      <div className="bg">
+        <div className="container">
+          {!displayCoupon ? (
+            <div className="form">
+              <div style={{ width: '100%', height: '1rpx' }} />
+              <Input
+                className="input input-tid"
+                placeholder='输入官旗店近半年的订单号'
+                value={orderNo}
+                onChange={value => setOrderNo(value)}
+              />
+              <div className="text">*仅支持同一用户的订单号</div>
               <Button
                 className="button"
+                block
                 type="primary"
                 shape="square"
-                onClick={handleSendCode}
-                disabled={isCounting}
-                style={isCounting && { backgroundColor: '#3880d3', opacity: '.8', border: 'none' }}
+                openType='getPhoneNumber'
+                onGetPhoneNumber={getPhoneNumber}
               >
-                {isCounting ? `${count}s后重新发送` : '获取验证码'}
+                授权手机号
+              </Button>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  background: '#fff',
+                }}
+              >
+                <Input
+                  className="input"
+                  type="number"
+                  maxLength="11"
+                  placeholder="请输入订单对应收货手机号"
+                  value={phoneNumber}
+                  onChange={value => setPhoneNumber(value)}
+                />
+                <div
+                  className="right"
+                  style={{ display: 'flex', alignItems: 'center' }}
+                >
+                  <Button
+                    className="button"
+                    type="primary"
+                    shape="square"
+                    onClick={handleSendCode}
+                    disabled={isCounting}
+                    style={isCounting && { backgroundColor: '#3880d3', opacity: '.8', border: 'none' }}
+                  >
+                    {isCounting ? `${count}s后重新发送` : '获取验证码'}
+                  </Button>
+                </div>
+              </div>
+              <div className="label">请输入验证码</div>
+              <Row type="flex" justify="center">
+                <Col span="12">
+                  <Input
+                    className="input input__code"
+                    type="number"
+                    maxLength="6"
+                    placeholder={null}
+                    value={smsCode}
+                    onChange={value => setSmsCode(value)}
+                  />
+                </Col>
+              </Row>
+              <Button
+                className="button"
+                block
+                type="primary"
+                shape="square"
+                onClick={handleSumbit}
+              >
+                一键识别
               </Button>
             </div>
-          </div>
-          <div className="label">请输入验证码</div>
-          <Row type="flex" justify="center">
-            <Col span="12">
-              <Input
-                className="input input__code"
-                type="number"
-                maxLength="6"
-                placeholder={null}
-                value={smsCode}
-                onChange={value => setSmsCode(value)}
-              />
-            </Col>
-          </Row>
-          <Button
-            className="button"
-            block
-            type="primary"
-            shape="square"
-            onClick={handleSumbit}
-          >
-            一键识别
-          </Button>
+          ) : (
+            <div>
+              <div className="text text__center">点击复制优惠券链接并在浏览器中打开</div>
+              <Row type="flex" justify="center">
+                <Image src={coupon} mode="widthFix" width="200" onClick={handleCouponClicked} />
+              </Row>
+            </div>
+          )}
         </div>
       </div>
       <Image src={footer} mode="widthFix" width="100%" />
