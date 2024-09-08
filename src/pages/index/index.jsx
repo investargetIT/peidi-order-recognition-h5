@@ -221,7 +221,8 @@ export default function Index () {
             </div>
           ) : (
             <div>
-              <div className="text text__center">点击复制优惠券链接并在浏览器中打开</div>
+              <div className="label">恭喜您，识别成功</div>
+              <div className="text text__center">请点击优惠券复制链接并在浏览器中打开</div>
               <Row type="flex" justify="center">
                 <Image src={coupon} mode="widthFix" width="200" onClick={handleCouponClicked} />
               </Row>
