@@ -8,6 +8,7 @@ import footer from "../../footer.jpg";
 export default function Index () {
   
   const [orderNo, setOrderNo] = useState('');
+  const [weChatPhoneNumber, setWeChatPhoneNumber] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isCounting, setIsCounting] = useState(false);
   const [count, setCount] = useState(60);
@@ -42,6 +43,7 @@ export default function Index () {
     const { data: res } = await Taro.request(params);
     const { success, data } = res;
     if (success) {
+      setWeChatPhoneNumber(data);
       setPhoneNumber(data);
     }
   };
@@ -108,7 +110,7 @@ export default function Index () {
         code: smsCode,
         inputMobile: phoneNumber,
         tid: orderNo,
-        wechatMobile: phoneNumber,
+        wechatMobile: weChatPhoneNumber,
       },
       method: 'POST',
     };
