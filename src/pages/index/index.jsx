@@ -98,6 +98,18 @@ export default function Index () {
   }
 
   const handleSumbit = async () => {
+    let title = '';
+    if (!orderNo) {
+      title = '请输入订单号';
+    } else if (!phoneNumber.match(/^1[3456789]\d{9}$/)) {
+      title = '请输入正确的手机号';
+    } else if (!smsCode) {
+      title = '请输入验证码';
+    }
+    Taro.showToast({
+      title: title,
+      icon: 'none',
+    });
     if (!orderNo || !phoneNumber || !smsCode) return;
     // const orderBinded = await checkOrderStatus();
     // if (orderBinded) {
