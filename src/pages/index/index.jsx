@@ -15,6 +15,7 @@ export default function Index () {
   const [count, setCount] = useState(60);
   const [smsCode, setSmsCode] = useState('');
   const [displayCoupon, setDisplayCoupon] = useState(false);
+  const [disableSendSmsCode, setDisableSendSmsCode] = useState(true);
 
   useLoad(() => {
     console.log('Page loaded.')
@@ -47,17 +48,18 @@ export default function Index () {
     if (success) {
       setWeChatPhoneNumber(data);
       setPhoneNumber(data);
+      setDisableSendSmsCode(false);
     }
   };
 
   const handleSendCode = async () => {
-    if (!phoneNumber.match(/^1[3456789]\d{9}$/)) {
-      Taro.showToast({
-        title: '手机号格式不正确',
-        icon: 'none'
-      })
-      return
-    }
+    // if (!phoneNumber.match(/^1[3456789]\d{9}$/)) {
+    //   Taro.showToast({
+    //     title: '手机号格式不正确',
+    //     icon: 'none'
+    //   })
+    //   return
+    // }
     const params = {
       url: process.env.TARO_APP_USER_API + '/user/validate-code',
       data: {
@@ -132,6 +134,11 @@ export default function Index () {
     Taro.setClipboardData({ data: process.env.TARO_APP_COUPON });
   }
 
+  const handlePhoneNumberChange = value => {
+    setPhoneNumber(value);
+    setDisableSendSmsCode(!value.match(/^1[3456789]\d{9}$/));
+  }
+
   const theme = {
     nutuiColorPrimary: '#3880d3',
     nutuiColorPrimaryStop1: '#3880d3',
@@ -178,7 +185,7 @@ export default function Index () {
                   maxLength="11"
                   placeholder="请输入订单对应收货手机号"
                   value={phoneNumber}
-                  onChange={value => setPhoneNumber(value)}
+                  onChange={handlePhoneNumberChange}
                 />
                 <div
                   className="right"
@@ -189,8 +196,8 @@ export default function Index () {
                     type="primary"
                     shape="square"
                     onClick={handleSendCode}
-                    disabled={isCounting}
-                    style={isCounting && { backgroundColor: '#3880d3', opacity: '.8', border: 'none' }}
+                    disabled={disableSendSmsCode || isCounting}
+                    style={(disableSendSmsCode || isCounting) && { backgroundColor: '#3880d3', opacity: '.8', border: 'none' }}
                   >
                     {isCounting ? `${count}s后重新发送` : '获取验证码'}
                   </Button>
