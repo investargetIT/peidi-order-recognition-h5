@@ -1,0 +1,41 @@
+.bg {
+  background-color: #3880d3;
+
+  .container {
+    margin: 0 20px;
+    padding: 60px;
+    background-color: white;
+    border: 4px solid black;
+
+    .text {
+      margin: 20px 0;
+      padding: 0 20px;
+      font-size: 24px;
+      color: #757575;
+      &__center {
+        text-align: center;
+      }
+    }
+
+    .label {
+      margin: 20px 0;
+      font-size: 32px;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .input {
+      border: 1px solid #bfbfbf;
+      height: 64px;
+
+      &__code {
+        height: 72px;
+        font-size: 36px;
+      }
+    }
+
+    .button {
+      margin: 20px 0;
+    }
+  }
+}
