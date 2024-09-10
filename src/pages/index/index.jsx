@@ -29,18 +29,15 @@ export default function Index () {
     }
   };
 
-  const handleBtnClicked = () => {
-    Taro.navigateTo({
-      url: 'pages/landing/index'
-    });
-  }
+  const handleAuthBtnClicked = () => {
+    const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.TARO_APP_ID}&redirect_uri=${process.env.TARO_APP_REDIRECT_URI}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
+    window.open(url);
+  };
 
   const theme = {
     nutuiColorPrimary: '#3880d3',
     nutuiColorPrimaryStop1: '#3880d3',
     nutuiColorPrimaryStop2: '#3880d3',
-    nutuiInputPadding: '10px',
-    nutuiInputFontSize: '13px',
   }
 
   return (
@@ -54,9 +51,7 @@ export default function Index () {
               block
               type="primary"
               shape="square"
-              // openType='getPhoneNumber'
-              // onGetPhoneNumber={getPhoneNumber}
-              onClick={handleBtnClicked}
+              onClick={handleAuthBtnClicked}
             >
               授权手机号
             </Button>
