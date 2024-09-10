@@ -45,17 +45,21 @@ export default function Index () {
       <Image src={header} mode="widthFix" width="100%" />
       <div className="bg">
         <div className="container">
-          <div className="form">
-            <Button
-              className="button"
-              block
-              type="primary"
-              shape="square"
-              onClick={handleAuthBtnClicked}
-            >
-              授权手机号
-            </Button>
+          <div className="label">佩蒂智创宠物科技有限公司申请获得您的公开信息（昵称、头像等）用于以下作用：</div>
+          <div className="text">
+            <div>• 领取优惠券</div>
+            <div>• 添加企业微信</div>
+            <div>• 私域活动通知</div>
           </div>
+          <Button
+            className="button"
+            block
+            type="primary"
+            shape="square"
+            onClick={handleAuthBtnClicked}
+          >
+            立即授权
+          </Button>
         </div>
       </div>
       <Image src={footer} mode="widthFix" width="100%" />
