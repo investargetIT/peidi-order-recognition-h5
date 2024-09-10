@@ -7,27 +7,34 @@ import footer from "../../footer.jpg";
 
 export default function Index () {
 
-  useLoad(() => {
-    console.log('Page loaded.');
+  useLoad(async () => {
+    const { code } = Taro.getCurrentInstance().router.params;
+    if (code) {
+      Taro.showLoading({
+        title: '加载中...',
+      });
+      const params = {
+        url: process.env.TARO_APP_API + '/wechat/wechatName?code=' + code,
+      };
+      const { data: res } = await Taro.request(params);
+      Taro.hideLoading();
+      const { success, data, msg } = res;
+      if (success) {
+        Taro.setStorage({
+          key: 'user',
+          data: JSON.stringify(data),
+        });
+        Taro.navigateTo({
+          url: 'pages/landing/index',
+        });
+      } else {
+        Taro.showToast({
+          title: msg,
+          icon: 'none'
+        });
+      }
+    }
   });
-
-  const getPhoneNumber = async e => {
-    const { code } = e.detail;
-    if (!code) {
-      console.log('用户拒绝授权手机号！！！');
-      return;
-    }
-    const params = {
-      url: process.env.TARO_APP_API + '/wechat/wechatMobile?code=' + code,
-    };
-    const { data: res } = await Taro.request(params);
-    const { success, data } = res;
-    if (success) {
-      setWeChatPhoneNumber(data);
-      setPhoneNumber(data);
-      setDisableSendSmsCode(false);
-    }
-  };
 
   const handleAuthBtnClicked = () => {
     const url = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${process.env.TARO_APP_ID}&redirect_uri=${process.env.TARO_APP_REDIRECT_URI}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
