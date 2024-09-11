@@ -117,11 +117,14 @@ export default function Index () {
     } else if (!smsCode) {
       title = '请输入验证码';
     }
-    Taro.showToast({
-      title: title,
-      icon: 'none',
-    });
-    if (!orderNo || !phoneNumber || !smsCode) return;
+    if (!orderNo || !phoneNumber || !smsCode) {
+      Taro.showToast({
+        title: title,
+        icon: 'none',
+      });
+      return;
+    }
+
     // const orderBinded = await checkOrderStatus();
     // if (orderBinded) {
     //   Taro.showToast({
@@ -154,7 +157,8 @@ export default function Index () {
   }
 
   const handleCouponClicked = () => {
-    Taro.setClipboardData({ data: process.env.TARO_APP_COUPON });
+    // Taro.setClipboardData({ data: process.env.TARO_APP_COUPON });
+    window.open(process.env.TARO_APP_COUPON);
   }
 
   const handlePhoneNumberChange = value => {
