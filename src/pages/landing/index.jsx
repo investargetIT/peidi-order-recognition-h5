@@ -16,9 +16,20 @@ export default function Index () {
   const [smsCode, setSmsCode] = useState('');
   const [displayCoupon, setDisplayCoupon] = useState(false);
   const [disableSendSmsCode, setDisableSendSmsCode] = useState(true);
+  const [user, setUser] = useState(null);
 
   useLoad(() => {
     console.log('Page loaded.')
+    Taro.getStorage({
+      key: 'user',
+      success: function (res) {
+        console.log(res.data);
+        setUser(JSON.parse(res.data));
+      },
+      fail: function (res) {
+        console.log(res);
+      },
+    });
   })
 
   useEffect(() => {
@@ -164,6 +175,14 @@ export default function Index () {
       <Image src={header} mode="widthFix" width="100%" />
       <div className="bg">
         <div className="container">
+
+          {user && <>
+            <Row type="flex" justify="center">
+              <Image mode="aspectFit" width="50" height="50" radius="50%" src={user.headimgurl} />
+            </Row>
+            <div className="text text__center">欢迎你，{user.nickname}</div>
+          </>}
+
           {!displayCoupon ? (
             <div className="form">
               <div style={{ width: '100%', height: '1rpx' }} />
@@ -174,7 +193,7 @@ export default function Index () {
                 onChange={value => setOrderNo(value)}
               />
               <div className="text">*仅支持同一用户的订单号</div>
-              <Button
+              {/* <Button
                 className="button"
                 block
                 type="primary"
@@ -183,7 +202,7 @@ export default function Index () {
                 onGetPhoneNumber={getPhoneNumber}
               >
                 授权手机号
-              </Button>
+              </Button> */}
               <div
                 style={{
                   display: 'flex',
