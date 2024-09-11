@@ -84,7 +84,10 @@ export default defineConfig(async (merge, { command, mode }) => {
             generateScopedName: '[name]__[local]___[hash:base64:5]'
           }
         }
-      }
+      },
+      router: {
+        mode: 'browser',
+      },
     },
     rn: {
       appName: 'taroDemo',
