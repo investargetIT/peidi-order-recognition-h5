@@ -137,7 +137,7 @@ export default function Index () {
         code: smsCode,
         inputMobile: phoneNumber,
         tid: orderNo,
-        wechatMobile: weChatPhoneNumber,
+        wechatMobile: phoneNumber,
       },
       method: 'POST',
     };
