@@ -6,7 +6,7 @@ import prodConfig from './prod'
 // https://taro-docs.jd.com/docs/next/config#defineconfig-辅助函数
 export default defineConfig(async (merge, { command, mode }) => {
   const baseConfig = {
-    projectName: 'peidi-planet-weapp',
+    projectName: 'peidi-order-recognition-h5',
     date: '2024-9-4',
     designWidth (input) {
       // 配置 NutUI 375 尺寸

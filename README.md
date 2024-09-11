@@ -11,4 +11,4 @@ cp .env.example .env
 ```
 ./run.sh
 ```
-4. 微信开发者工具导入 `/dist` 目录下编译后的小程序代码
+4. 访问 http://localhost:10086 
