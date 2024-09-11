@@ -59,6 +59,7 @@ export default function Index () {
             <div>• 私域活动通知</div>
           </div>
           <Button
+            size="large"
             className="button"
             block
             type="primary"

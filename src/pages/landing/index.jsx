@@ -141,6 +141,7 @@ export default function Index () {
         inputMobile: phoneNumber,
         tid: orderNo,
         wechatMobile: phoneNumber,
+        unionid: user.unionid,
       },
       method: 'POST',
     };
@@ -227,6 +228,7 @@ export default function Index () {
                   style={{ display: 'flex', alignItems: 'center' }}
                 >
                   <Button
+                    size="large"
                     className="button"
                     type="primary"
                     shape="square"
@@ -252,6 +254,7 @@ export default function Index () {
                 </Col>
               </Row>
               <Button
+                size="large"
                 className="button"
                 block
                 type="primary"
@@ -264,7 +267,7 @@ export default function Index () {
           ) : (
             <div>
               <div className="label">恭喜您，识别成功</div>
-              <div className="text text__center">请点击优惠券复制链接并在浏览器中打开</div>
+              {/* <div className="text text__center">请点击优惠券复制链接并在浏览器中打开</div> */}
               <Row type="flex" justify="center">
                 <Image src={coupon} mode="widthFix" width="200" onClick={handleCouponClicked} />
               </Row>
