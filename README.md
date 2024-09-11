@@ -19,6 +19,5 @@ docker exec peidi-order-recognition-h5 npm run build:h5
 ```
 2. 上传到服务器
 ```
-scp -r dist/* root@example.com:/media/www/peidi-order-recogni
-tion-h5
+scp -r dist/* root@example.com:/media/www/peidi-order-recognition-h5
 ```
